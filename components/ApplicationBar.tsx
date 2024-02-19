@@ -20,7 +20,7 @@ import { StyledDropdown } from '@/components/util/StyledDropdown';
 import { StyledDropdownWithSymbol } from '@/components/util/StyledDropdownWithSymbol';
 import { useChatStore } from '@/lib/store-chats';
 import { useSettingsStore } from '@/lib/store-settings';
-
+import Link from 'next/link';
 
 /**
  * The top bar of the application, with the model and purpose selection, and menu/settings icons
@@ -36,7 +36,6 @@ export function ApplicationBar(props: {
   const [clearConfirmationId, setClearConfirmationId] = React.useState<string | null>(null);
   const [pagesMenuAnchor, setPagesMenuAnchor] = React.useState<HTMLElement | null>(null);
   const [actionsMenuAnchor, setActionsMenuAnchor] = React.useState<HTMLElement | null>(null);
-
 
   // settings
 
@@ -133,15 +132,23 @@ export function ApplicationBar(props: {
         {chatModelId && <StyledDropdown items={ChatModels} value={chatModelId} onChange={handleChatModelChange} />}
 
         {systemPurposeId && (zenMode === 'cleaner'
-            ? <StyledDropdown items={SystemPurposes} value={systemPurposeId} onChange={handleSystemPurposeChange} />
-            : <StyledDropdownWithSymbol items={SystemPurposes} value={systemPurposeId} onChange={handleSystemPurposeChange} />
+          ? <StyledDropdown items={SystemPurposes} value={systemPurposeId} onChange={handleSystemPurposeChange} />
+          : <StyledDropdownWithSymbol items={SystemPurposes} value={systemPurposeId} onChange={handleSystemPurposeChange} />
         )}
+        <Link href='https://github.com/hightecular95908/openai-chatgpt-nextjs-full-version'>
+          <IconButton variant='plain'>
+            <Badge variant='solid' size='sm' badgeContent={conversationsCount < 2 ? 0 : conversationsCount}>
+              <img src='github.png' width={'30px'} height={'30px'} style={{ borderRadius: "8px" }} />
+            </Badge>
+          </IconButton>
+        </Link>
 
       </Stack>
 
       <IconButton variant='plain' onClick={event => setActionsMenuAnchor(event.currentTarget)}>
         <MoreVertIcon />
       </IconButton>
+
     </Sheet>
 
 
@@ -150,6 +157,7 @@ export function ApplicationBar(props: {
 
 
     {/* Right menu */}
+
     <Menu
       variant='plain' color='neutral' size='lg' placement='bottom-end' sx={{ minWidth: 280 }}
       open={!!actionsMenuAnchor} anchorEl={actionsMenuAnchor} onClose={closeActionsMenu}
@@ -205,8 +213,6 @@ export function ApplicationBar(props: {
         Clear conversation
       </MenuItem>
     </Menu>
-
-
     {/* Confirmations */}
     <ConfirmationModal
       open={!!clearConfirmationId} onClose={() => setClearConfirmationId(null)} onPositive={handleConfirmedClearConversation}
