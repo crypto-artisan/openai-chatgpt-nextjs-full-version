@@ -103,16 +103,16 @@ const SentMessagesMenu = (props: {
   onClear: () => void,
 }) =>
   <Menu
-    variant='plain' color='neutral' size='md' placement='top-end' sx={{ minWidth: 320, overflow: 'auto' }}
+    variant='plain' color='primary' size='md' placement='top-end' sx={{ minWidth: 320, overflow: 'auto' }}
     open anchorEl={props.anchorEl} onClose={props.onClose}>
 
-    <MenuItem color='neutral' selected>Reuse messages 💬</MenuItem>
+    <MenuItem color='primary' selected>Reuse messages 💬</MenuItem>
 
     <ListDivider />
 
     {props.messages.map((item, index) =>
       <MenuItem key={'composer-sent-' + index} onClick={() => props.onPaste(item.text)}>
-        {item.count > 1 && <Typography level='body2' color='neutral' sx={{ mr: 1 }}>({item.count})</Typography>}
+        {item.count > 1 && <Typography level='body2' color='primary' sx={{ mr: 1 }}>({item.count})</Typography>}
         {item.text.length > 60 ? item.text.slice(0, 58) + '...' : item.text}
       </MenuItem>)}
 
@@ -212,7 +212,7 @@ export function Composer(props: {
 
   const handleMicClicked = () => toggleRecording();
 
-  const micColor = isSpeechError ? 'danger' : isRecordingSpeech ? 'warning' : isRecordingAudio ? 'warning' : 'neutral';
+  const micColor = isSpeechError ? 'danger' : isRecordingSpeech ? 'warning' : isRecordingAudio ? 'warning' : 'primary';
   const micVariant = isRecordingSpeech ? 'solid' : isRecordingAudio ? 'solid' : 'plain';
 
   async function loadAndAttachFiles(files: FileList) {
@@ -366,7 +366,7 @@ export function Composer(props: {
     console.log('Unhandled Drop event. Contents: ', e.dataTransfer.types.map(t => `${t}: ${e.dataTransfer.getData(t)}`));
   };
 
-  const textPlaceholder: string = `Type ${props.isDeveloperMode ? 'your message and drop source files' : 'a message, or drop text files'}...`;
+  const textPlaceholder: string = `Type ${props.isDeveloperMode ? 'your prompt and drop source files' : 'a message, or drop text files'}...`;
 
   return (
     <Box sx={props.sx}>
@@ -380,13 +380,13 @@ export function Composer(props: {
 
             {/*<Typography level='body3' sx={{mb: 2}}>Context</Typography>*/}
 
-            <IconButton variant='plain' color='neutral' onClick={handleShowFilePicker} sx={{ ...hideOnDesktop }}>
+            <IconButton variant='plain' color='primary' onClick={handleShowFilePicker} sx={{ ...hideOnDesktop }}>
               <UploadFileIcon />
             </IconButton>
             <Tooltip
               variant='solid' placement='top-start'
               title={attachFileLegend}>
-              <Button fullWidth variant='plain' color='neutral' onClick={handleShowFilePicker} startDecorator={<UploadFileIcon />}
+              <Button fullWidth variant='plain' color='primary' onClick={handleShowFilePicker} startDecorator={<UploadFileIcon />}
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
                 Attach
               </Button>
@@ -394,13 +394,13 @@ export function Composer(props: {
 
             <Box sx={{ mt: { xs: 1, md: 2 } }} />
 
-            <IconButton variant='plain' color='neutral' onClick={handlePasteFromClipboard} sx={{ ...hideOnDesktop }}>
+            <IconButton variant='plain' color='primary' onClick={handlePasteFromClipboard} sx={{ ...hideOnDesktop }}>
               <ContentPasteGoIcon />
             </IconButton>
             <Tooltip
               variant='solid' placement='top-start'
               title={pasteClipboardLegend}>
-              <Button fullWidth variant='plain' color='neutral' startDecorator={<ContentPasteGoIcon />} onClick={handlePasteFromClipboard}
+              <Button fullWidth variant='plain' color='primary' startDecorator={<ContentPasteGoIcon />} onClick={handlePasteFromClipboard}
                       sx={{ ...hideOnMobile, justifyContent: 'flex-start' }}>
                 {props.isDeveloperMode ? 'Paste code' : 'Paste'}
               </Button>
@@ -421,7 +421,7 @@ export function Composer(props: {
 
               <Textarea
                 variant='outlined' autoFocus placeholder={textPlaceholder}
-                minRows={4} maxRows={12}
+                minRows={1} maxRows={12}
                 onKeyDown={handleKeyPress}
                 onDragEnter={handleMessageDragEnter}
                 value={composeText} onChange={(e) => setComposeText(e.target.value)}
@@ -437,6 +437,7 @@ export function Composer(props: {
                   background: theme.vars.palette.background.level1,
                   fontSize: '16px',
                   lineHeight: 1.75,
+                  boxShadow:'0 0 5px 5px rgb(0, 170 ,255, 200)'
                 }} />
 
               {tokenLimit > 0 && (directTokens > 0 || indirectTokens > 0) && <TokenProgress direct={directTokens} indirect={indirectTokens} limit={tokenLimit} />}
@@ -477,17 +478,17 @@ export function Composer(props: {
 
               {/* [mobile-only] Sent messages arrow */}
               {sentMessages.length > 0 && (
-                <IconButton variant='plain' color='neutral' onClick={showSentMessages} sx={{ ...hideOnDesktop, mr: { xs: 1, md: 2 } }}>
+                <IconButton variant='plain' color='primary' onClick={showSentMessages} sx={{ ...hideOnDesktop, mr: { xs: 1, md: 2 } }}>
                   <KeyboardArrowUpIcon />
                 </IconButton>
               )}
 
               {/* Send / Stop */}
               {assistantTyping
-                ? <Button fullWidth variant='soft' color='primary' disabled={!props.conversationId} onClick={handleStopClicked} endDecorator={<StopOutlinedIcon />}>
+                ? <Button fullWidth variant='soft' color='primary' style={{background:"#ff00ff"}} disabled={!props.conversationId} onClick={handleStopClicked} endDecorator={<StopOutlinedIcon />}>
                   Stop
                 </Button>
-                : <Button fullWidth variant='solid' color='primary' disabled={!props.conversationId} onClick={handleSendClicked} endDecorator={<TelegramIcon />}>
+                : <Button fullWidth variant='solid' color='primary' style={{background:"#ff00ff"}}  disabled={!props.conversationId} onClick={handleSendClicked} endDecorator={<TelegramIcon />}>
                   Chat
                 </Button>}
             </Box>
@@ -495,7 +496,7 @@ export function Composer(props: {
             {/* [desktop-only] row with Sent Messages button */}
             <Stack direction='row' spacing={1} sx={{ ...hideOnMobile, flexDirection: { xs: 'column', md: 'row' }, justifyContent: 'flex-end' }}>
               {sentMessages.length > 0 && (
-                <Button fullWidth variant='plain' color='neutral' startDecorator={<KeyboardArrowUpIcon />} onClick={showSentMessages}>
+                <Button fullWidth variant='plain' color='primary' startDecorator={<KeyboardArrowUpIcon />} onClick={showSentMessages}>
                   History
                 </Button>
               )}

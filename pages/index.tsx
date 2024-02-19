@@ -32,19 +32,19 @@ export default function Home() {
      */
     <NoSSR>
 
-      <Container maxWidth={centerMode === 'full' ? false : centerMode === 'narrow' ? 'md' : 'xl'} disableGutters sx={{
+      {/* <Container maxWidth={centerMode === 'full' ? false : centerMode === 'narrow' ? 'md' : 'xl'}  disableGutters sx={{
         boxShadow: {
           xs: 'none',
           md: centerMode === 'narrow' ? theme.vars.shadow.md : 'none',
           xl: centerMode !== 'full' ? theme.vars.shadow.lg : 'none',
         },
-      }}>
+      }}> */}
 
         <Chat onShowSettings={() => setSettingsShown(true)} />
 
         <SettingsModal open={settingsShown} onClose={() => setSettingsShown(false)} />
 
-      </Container>
+      {/* </Container> */}
 
     </NoSSR>
   );

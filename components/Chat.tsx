@@ -134,6 +134,8 @@ export function Chat(props: { onShowSettings: () => void, sx?: SxProps }) {
         sx={{
           position: 'sticky', top: 0, zIndex: 20,
           // ...(process.env.NODE_ENV === 'development' ? { background: theme.vars.palette.danger.solidBg } : {}),
+          backgroundColor: '#00001a',
+          boxShadow:'0 0 1px 1px rgb(0, 170 ,255)'
         }} />
 
       <ChatMessageList
@@ -144,6 +146,11 @@ export function Chat(props: { onShowSettings: () => void, sx?: SxProps }) {
           background: theme.vars.palette.background.level2,
           overflowY: 'hidden',
           marginBottom: '-1px',
+          backgroundImage: 'url("./back.jpg")',
+          // backgroundColor: '#000',
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover',
+          padding:'0 200px 0 '
         }} />
 
       <Composer
@@ -152,7 +159,7 @@ export function Chat(props: { onShowSettings: () => void, sx?: SxProps }) {
         onSendMessage={handleSendMessage}
         sx={{
           position: 'sticky', bottom: 0, zIndex: 21,
-          background: theme.vars.palette.background.surface,
+          background: '#00001a',
           borderTop: `1px solid ${theme.vars.palette.divider}`,
           p: { xs: 1, md: 2 },
         }} />

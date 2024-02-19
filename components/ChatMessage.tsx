@@ -192,7 +192,7 @@ function RenderCode(props: { codeBlock: CodeBlock, sx?: SxProps }) {
         }}>
         {hasSVG && (
           <Tooltip title={renderSVG ? 'Code' : 'Draw'} variant='solid'>
-            <IconButton variant={renderSVG ? 'solid' : 'soft'} color='neutral' onClick={() => setShowSVG(!showSVG)}>
+            <IconButton variant={renderSVG ? 'solid' : 'soft'} color='primary' onClick={() => setShowSVG(!showSVG)}>
               <ShapeLineOutlinedIcon />
             </IconButton>
           </Tooltip>
@@ -204,7 +204,7 @@ function RenderCode(props: { codeBlock: CodeBlock, sx?: SxProps }) {
           <OpenInReplit codeBlock={{ code: props.codeBlock.code, language: props.codeBlock.language || undefined }} />
         }
         <Tooltip title='Copy Code' variant='solid'>
-          <IconButton variant='outlined' color='neutral' onClick={handleCopyToClipboard}>
+          <IconButton variant='outlined' color='primary' onClick={handleCopyToClipboard}>
             <ContentCopyIcon />
           </IconButton>
         </Tooltip>
@@ -241,6 +241,7 @@ const RenderText = ({ textBlock }: { textBlock: TextBlock }) =>
       mx: 1.5,
       overflowWrap: 'anywhere',
       whiteSpace: 'break-spaces',
+      color:'#fff'
     }}>
     {textBlock.content}
   </Typography>;
@@ -406,11 +407,11 @@ export function ChatMessage(props: { message: DMessage, isLast: boolean, onMessa
           if (messageTyping)
             return <Avatar
               alt={messageSender} variant='plain'
-              src='https://i.giphy.com/media/jJxaUysjzO9ri/giphy.webp'
+              src='coding.webp'
               sx={{
                 width: 64,
                 height: 64,
-                borderRadius: 8,
+                borderRadius: 24,
               }}
             />;
           const symbol = SystemPurposes[messagePurposeId as SystemPurposeId]?.symbol;
@@ -462,9 +463,9 @@ export function ChatMessage(props: { message: DMessage, isLast: boolean, onMessa
     <ListItem sx={{
       display: 'flex', flexDirection: !fromAssistant ? 'row-reverse' : 'row', alignItems: 'flex-start',
       gap: 1, px: { xs: 1, md: 2 }, py: 2,
-      background,
+      background: '#00000000',
       borderBottom: `1px solid ${theme.vars.palette.divider}`,
-      // borderBottomColor: `rgba(${theme.vars.palette.neutral.mainChannel} / 0.2)`,
+      // borderBottomColor: `rgba(${theme.vars.palette.primary.mainChannel} / 0.2)`,
       position: 'relative',
       '&:hover > button': { opacity: 1 },
     }}>
@@ -476,7 +477,7 @@ export function ChatMessage(props: { message: DMessage, isLast: boolean, onMessa
         onClick={event => setMenuAnchor(event.currentTarget)}>
 
         {isHovering ? (
-          <IconButton variant='soft' color={fromAssistant ? 'neutral' : 'primary'}>
+          <IconButton variant='soft' color={fromAssistant ? 'primary' : 'primary'}>
             <MoreVertIcon />
           </IconButton>
         ) : (
@@ -502,9 +503,9 @@ export function ChatMessage(props: { message: DMessage, isLast: boolean, onMessa
 
         <Box sx={{ ...cssBlocks, flexGrow: 0 }} onDoubleClick={handleMenuEdit}>
 
-          {fromSystem && wasEdited && (
+          {/* {fromSystem && wasEdited && (
             <Typography level='body2' color='warning' sx={{ mt: 1, mx: 1.5 }}>modified by user - auto-update disabled</Typography>
-          )}
+          )} */}
 
           {!errorMessage && parseBlocks(fromSystem, collapsedText).map((block, index) =>
             block.type === 'code'
@@ -535,7 +536,7 @@ export function ChatMessage(props: { message: DMessage, isLast: boolean, onMessa
       {!fromSystem && !isEditing && (
         <Tooltip title={fromAssistant ? 'Copy response' : 'Copy input'} variant='solid'>
           <IconButton
-            variant='outlined' color='neutral' onClick={handleMenuCopy}
+            variant='outlined' color='primary' onClick={handleMenuCopy}
             sx={{
               position: 'absolute', ...(fromAssistant ? { right: { xs: 12, md: 28 } } : { left: { xs: 12, md: 28 } }), zIndex: 10,
               opacity: 0, transition: 'opacity 0.3s',
@@ -549,7 +550,7 @@ export function ChatMessage(props: { message: DMessage, isLast: boolean, onMessa
       {/* Message Operations menu */}
       {!!menuAnchor && (
         <Menu
-          variant='plain' color='neutral' size='lg' placement='bottom-end' sx={{ minWidth: 280 }}
+          variant='plain' color='primary' size='lg' placement='bottom-end' sx={{ minWidth: 280 }}
           open anchorEl={menuAnchor} onClose={closeOperationsMenu}>
           <MenuItem onClick={handleMenuCopy}>
             <ListItemDecorator><ContentCopyIcon /></ListItemDecorator>

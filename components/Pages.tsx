@@ -189,12 +189,12 @@ export function PagesMenu(props: { conversationId: string | null, pagesMenuAncho
       {/*  </Typography>*/}
       {/*</ListItem>*/}
 
-      <MenuItem onClick={handleNew}>
-        <ListItemDecorator><AddIcon /></ListItemDecorator>
-        <Typography>
-          {NewPrefix}New
-        </Typography>
-      </MenuItem>
+        <MenuItem onClick={handleNew}>
+          <ListItemDecorator><AddIcon /></ListItemDecorator>
+          <Typography>
+            {NewPrefix}New
+          </Typography>
+        </MenuItem>
 
       {conversationIDs.map(conversationId =>
         <ConversationListItem

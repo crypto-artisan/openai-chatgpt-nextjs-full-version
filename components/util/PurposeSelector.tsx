@@ -116,13 +116,13 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
     {showPurposeFinder && <Box sx={{ p: 2 * tileSpacing }}>
       <Input
         fullWidth
-        variant='outlined' color='neutral'
+        variant='outlined' color='primary'
         value={searchQuery} onChange={handleSearchOnChange}
         onKeyDown={handleSearchOnKeyDown}
         placeholder='Search for purpose…'
         startDecorator={<SearchIcon />}
         endDecorator={searchQuery && (
-          <IconButton variant='plain' color='neutral' onClick={handleSearchClear}>
+          <IconButton variant='plain' color='primary' onClick={handleSearchClear}>
             <ClearIcon />
           </IconButton>
         )}
@@ -137,10 +137,10 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
       <Box sx={{ maxWidth: bpMaxWidth }}>
 
         <Box sx={{ display: 'flex', flexDirection: 'row', alignItems: 'baseline', justifyContent: 'space-between', gap: 2, mb: 1 }}>
-          <Typography level='body2' color='neutral'>
+          <Typography level='body2' color='primary' fontSize={20}>
             Select an AI purpose
           </Typography>
-          <Button variant='plain' color='neutral' size='sm' onClick={toggleEditMode}>
+          <Button variant='plain' color='primary' size='sm' onClick={toggleEditMode} style={{fontSize:'20px'}}>
             {editMode ? 'Done' : 'Edit'}
           </Button>
         </Box>
@@ -150,7 +150,7 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
             <Grid key={spId}>
               <Button
                 variant={(!editMode && systemPurposeId === spId) ? 'solid' : 'soft'}
-                color={(!editMode && systemPurposeId === spId) ? 'primary' : 'neutral'}
+                color={(!editMode && systemPurposeId === spId) ? 'primary' : 'primary'}
                 onClick={() => !editMode && handlePurposeChanged(spId as SystemPurposeId)}
                 sx={{
                   flexDirection: 'column',
@@ -159,8 +159,8 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
                   height: bpTileSize,
                   width: bpTileSize,
                   ...((editMode || systemPurposeId !== spId) ? {
-                    boxShadow: theme.vars.shadow.md,
-                    background: theme.vars.palette.background.level1,
+                    boxShadow: '0 0 3px 1px rgb(0, 170, 250)',
+                    background: '#00000000',
                   } : {}),
                 }}
               >
@@ -182,7 +182,7 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
           ))}
         </Grid>
 
-        <Typography
+        {/* <Typography
           level='body2'
           sx={{
             mt: selectedExample ? 1 : 3,
@@ -196,7 +196,7 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
                 ? <>
                   <i>{selectedExample}</i>
                   <IconButton
-                    variant='plain' color='neutral' size='md'
+                    variant='plain' color='primary' size='md'
                     onClick={() => props.runExample(selectedExample)}
                     sx={{ opacity: 0, transition: 'opacity 0.3s' }}
                   >
@@ -205,7 +205,7 @@ export function PurposeSelector(props: { conversationId: string, runExample: (ex
                 </>
                 : selectedPurpose.description
             )}
-        </Typography>
+        </Typography> */}
 
         {systemPurposeId === 'Custom' && (
           <Textarea
